@@ -31,8 +31,10 @@ pipeline {
                             -o BatchMode=no \
                             -o ConnectTimeout=30 \
                             "$SSH_USER@$HOST" bash << EOF
-printf '%s\n' "$SSHPASS" | sudo -S apt-get update
-printf '%s\n' "$SSHPASS" | sudo -S env DEBIAN_FRONTEND=noninteractive apt-get upgrade -y
+printf '%s\n' "$SSHPASS" | sudo -S apt-get update &&
+printf '%s\n' "$SSHPASS" | sudo -S env DEBIAN_FRONTEND=noninteractive apt-get upgrade -y &&
+printf '%s\n' "$SSHPASS" | sudo -S apt-get autoremove -y &&
+printf '%s\n' "$SSHPASS" | sudo -S apt-get clean
 EOF
                     '''
                 }
