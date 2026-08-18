@@ -16,6 +16,14 @@ pipeline {
     }
 
     stages {
+        stage('Prepare') {
+            steps {
+                script {
+                    currentBuild.displayName = "#${BUILD_NUMBER} \u2014 ${params.HOST}"
+                }
+            }
+        }
+
         stage('Update packages') {
             steps {
                 withCredentials([usernamePassword(
